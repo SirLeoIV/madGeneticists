@@ -1,5 +1,7 @@
 package src;
 
+import src.support.Debug;
+
 public class Evolution {
 
     public static boolean singleCrossOverPoint = false;
@@ -33,7 +35,7 @@ public class Evolution {
 
     public static Individual[] nextGeneration(Individual[] currentGen) {
         Individual[] nextGen = new Individual[currentGen.length];
-        Individual[] highPerformer = new Individual[10];
+        Individual[] highPerformer = new Individual[numberOfIndividualsUsedForReproduction];
 
         for (int i = 0; i < highPerformer.length; i++) {
             highPerformer[i] = currentGen[i];
@@ -79,7 +81,7 @@ public class Evolution {
         
         // some random mutations (not so likely)
         for (int i = 0; i < newChromosome.length; i++) {
-            if(Practical1.generator.nextDouble(10) > 7) {
+            if(Practical1.generator.nextDouble(100) > 70) {
                 newChromosome[i] = Practical1.alphabet[Practical1.generator.nextInt(Practical1.alphabet.length)];
             }
         }

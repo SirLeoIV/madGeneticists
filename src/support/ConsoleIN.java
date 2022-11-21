@@ -1,4 +1,4 @@
-package src;
+package src.support;
 
 import java.util.Scanner;
 import java.util.stream.Stream;

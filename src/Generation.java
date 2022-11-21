@@ -2,6 +2,8 @@ package src;
 
 import java.util.stream.Stream;
 
+import src.support.HeapSort;
+
 public class Generation {
     
     private Individual[] population = {};

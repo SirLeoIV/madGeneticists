@@ -2,15 +2,20 @@ package src;
 import java.util.ArrayList;
 import java.util.Random;
 
+import src.support.Debug;
+import src.support.Input;
+
 public class Practical1 {
 
-	static String TARGET = "HELLO WORLD";
-	static int popSize = 100;
-	static char[] alphabet = new char[27];
-	static Individual[] population = {};
-	static Random generator = new Random(System.currentTimeMillis());
-	static ArrayList<Generation> generations = new ArrayList<>();
-	static ArrayList<Integer> results = new ArrayList<>();
+	public static String TARGET = "HELLO WORLD";
+	public static int popSize = 100;
+	public static char[] alphabet = new char[27];
+	public static Individual[] population = {};
+	public static Random generator = new Random(System.currentTimeMillis());
+	public static ArrayList<Generation> generations = new ArrayList<>();
+	public static ArrayList<Integer> results = new ArrayList<>();
+	public static int performersToBeLogged = 3;
+	public static int runs = 1;
 
 	public static void main(String[] args) {
 		initAlphabet();
@@ -19,6 +24,7 @@ public class Practical1 {
 		Input.specifyChromosomeDesicion();
 		Input.specifyPopulationSize();
 		Input.specifyNumberOfIndividualsUsedForReproduction();
+		Input.specifyNumberOfRuns();
 
 		// do your own cool GA here
 		/**
@@ -37,13 +43,17 @@ public class Practical1 {
 		 * - Check your integers and doubles (eg. don't use ints for double divisions).
 		*/
 
-		for (int i = 1; i <= 1; i++) {
+		for (int i = 1; i <= runs; i++) {
 			runSimulation();
 			if(i % 20 == 0) Debug.log1("Run no." + i);
 			if(i % 100 == 0) Debug.log1("Medium number of generations (so far): " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
 		}
-
-		// Debug.log1("Medium number of generations: " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
+		if(runs > 1) {
+			Debug.log1("");
+			Debug.log1("----------- SUCCESSFULLY COMPLETED SIMULATION-----------");
+			Debug.log1("Simulation run for " + runs + " times.");
+			Debug.log1("Medium number of generations: " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
+		}
 	}
 
 	public static void runSimulation() {
@@ -51,8 +61,6 @@ public class Practical1 {
 		Generation currentGeneration = new Generation(Evolution.initPopulation(popSize));
 		generations.add(currentGeneration);
 		currentGeneration.perform();
-		// for(Individual i : currentGeneration.highPerformer(5)) System.out.println(i);
-		// System.out.println("Medium Fitness: " + currentGeneration.mediumFitness());
 
 		while(currentGeneration.searchForMatch(TARGET) == null) {
 		 	currentGeneration = currentGeneration.nextGeneration();
@@ -60,15 +68,15 @@ public class Practical1 {
 			generations.add(currentGeneration);
 		 	Debug.log2("Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
 			Debug.log3("High Performer: ");
-			for(Individual i : currentGeneration.highPerformer(3)) Debug.log3(i);
+			for(Individual i : currentGeneration.highPerformer(performersToBeLogged)) Debug.log3(i);
 			Debug.log3("Low Performer: ");
-			for(Individual i : currentGeneration.lowPerformer(3)) Debug.log3(i);
+			for(Individual i : currentGeneration.lowPerformer(performersToBeLogged)) Debug.log3(i);
 			Debug.log3("----------------");
 		}
 
-		// for(Individual i : currentGeneration.highPerformer(2)) System.out.println(i);
-		System.out.println("Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
-		System.out.println("Found Target: " + currentGeneration.searchForMatch(TARGET));
+		Debug.log2("# SUCCESS #");
+		Debug.log1("-- Final Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
+		Debug.log1("-- Found Target: " + currentGeneration.searchForMatch(TARGET));
 		results.add(generations.size());
 	}
 

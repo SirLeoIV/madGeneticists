@@ -1,4 +1,4 @@
-package src;
+package src.support;
 /*
  * @(#)HeapSortAlgorithm.java   1.0 95/06/23 Jason Harrison
  *
@@ -17,6 +17,8 @@ package src;
  * ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR
  * DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES.
  */
+
+import src.Individual;
 
 /**
  * A heap sort demonstration algorithm
