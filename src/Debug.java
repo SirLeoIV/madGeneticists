@@ -7,11 +7,11 @@ public class Debug {
     public static void log1(Object o) {
         if (LOG_LEVEL >= 1) System.out.println(o.toString());
     }
-        
+    
     public static void log2(Object o) {
         if (LOG_LEVEL >= 2) System.out.println(o.toString());
     }
-        
+    
     public static void log3(Object o) {
         if (LOG_LEVEL >= 3) System.out.println(o.toString());
     }

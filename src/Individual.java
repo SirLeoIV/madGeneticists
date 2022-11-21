@@ -48,9 +48,7 @@ public class Individual {
 	}
 	
 	public String toString() {
-		//return "Phenotype:  '" + genoToPhenotype() + "'  Fitness: " + fitness;
-		if(Debug.DEBUG) return genoToPhenotype() + " : " + fitness + " (" + hits + "/" + Practical1.TARGET.length() + ")";
-		return genoToPhenotype() + " : " + fitness;
+		return genoToPhenotype() + " : " + fitness + " (" + hits + "/" + Practical1.TARGET.length() + ")";
 	}
 
 

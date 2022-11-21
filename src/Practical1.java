@@ -14,6 +14,11 @@ public class Practical1 {
 
 	public static void main(String[] args) {
 		initAlphabet();
+		Input.specifyLogLevel();
+		Input.specifyTarget();
+		Input.specifyChromosomeDesicion();
+		Input.specifyPopulationSize();
+		Input.specifyNumberOfIndividualsUsedForReproduction();
 
 		// do your own cool GA here
 		/**
@@ -32,13 +37,13 @@ public class Practical1 {
 		 * - Check your integers and doubles (eg. don't use ints for double divisions).
 		*/
 
-		for (int i = 0; i < 1; i++) {
+		for (int i = 1; i <= 1; i++) {
 			runSimulation();
-			if(i % 20 == 0) System.out.println("Run no." + i);
-			if(i % 100 == 0) System.out.println("Medium number of generations (so far): " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
+			if(i % 20 == 0) Debug.log1("Run no." + i);
+			if(i % 100 == 0) Debug.log1("Medium number of generations (so far): " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
 		}
 
-		System.out.println("Medium number of generations: " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
+		// Debug.log1("Medium number of generations: " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
 	}
 
 	public static void runSimulation() {
@@ -52,10 +57,13 @@ public class Practical1 {
 		while(currentGeneration.searchForMatch(TARGET) == null) {
 		 	currentGeneration = currentGeneration.nextGeneration();
 		 	currentGeneration.perform();
-		 	System.out.println("Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
 			generations.add(currentGeneration);
-			for(Individual i : currentGeneration.highPerformer(3)) System.out.println(i);
-			for(Individual i : currentGeneration.lowPerformer(3)) System.out.println(i);
+		 	Debug.log2("Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
+			Debug.log3("High Performer: ");
+			for(Individual i : currentGeneration.highPerformer(3)) Debug.log3(i);
+			Debug.log3("Low Performer: ");
+			for(Individual i : currentGeneration.lowPerformer(3)) Debug.log3(i);
+			Debug.log3("----------------");
 		}
 
 		// for(Individual i : currentGeneration.highPerformer(2)) System.out.println(i);
