@@ -28,6 +28,10 @@ public class Individual {
 	public void setFitness(double fitness) {
 		this.fitness = fitness;
 	}
+
+	public void setFitness() {
+		fitness = Evolution.calculateFitness(this);
+	}
 	
 	public String genoToPhenotype() {
 		StringBuilder builder = new StringBuilder();
@@ -54,5 +58,21 @@ public class Individual {
 		this.hits = hits;
 	}
 
+
+	public void setHits() {
+		hits = Evolution.countHits(this);
+	}
+
+
+    public int getHits() {
+        return hits;
+    }
+
+	public boolean matches(String target) {
+		for(int i = 0; i < chromosome.length; i++) {
+			if(Character.compare(chromosome[i], target.charAt(i)) != 0) return false;
+		}
+		return true;
+	}
 
 }

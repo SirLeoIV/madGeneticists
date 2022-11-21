@@ -1,34 +1,19 @@
 package src;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Practical1 {
 
-	static final String TARGET = "HELLO WORLD";
+	static String TARGET = "HELLO WORLD";
+	static int popSize = 100;
 	static char[] alphabet = new char[27];
+	static Individual[] population = {};
+	static Random generator = new Random(System.currentTimeMillis());
+	static ArrayList<Generation> generations = new ArrayList<>();
+	static ArrayList<Integer> results = new ArrayList<>();
 
 	public static void main(String[] args) {
-		int popSize = 100;
-		for (char c = 'A'; c <= 'Z'; c++) {
-			alphabet[c - 'A'] = c;
-		}
-		alphabet[26] = ' ';
-		Random generator = new Random(System.currentTimeMillis());
-		Individual[] population = new Individual[popSize];
-		// we initialize the population with random characters
-		for (int i = 0; i < popSize; i++) {
-			char[] tempChromosome = new char[TARGET.length()];
-			for (int j = 0; j < TARGET.length(); j++) {
-				tempChromosome[j] = alphabet[generator.nextInt(alphabet.length)]; //choose a random letter in the alphabet
-			}
-			population[i] = new Individual(tempChromosome);
-		}
-		// What does your population look like?
-		for (int i = 0; i < population.length; i++) {
-			population[i].setFitness(calculateFitness(population[i]));
-			population[i].setHits(countHits(population[i]));
-			// System.out.println(population[i].genoToPhenotype());
-			// System.out.println(" : " + population[i].getFitness());
-		}
+		initAlphabet();
 
 		// do your own cool GA here
 		/**
@@ -45,25 +30,45 @@ public class Practical1 {
 		 *  Individual class.Use it!
 		 * - You can compare your chromosome and your target string, using for eg. TARGET.charAt(i) == ...
 		 * - Check your integers and doubles (eg. don't use ints for double divisions).
-		 */
+		*/
 
-		HeapSort.sort(population);
-
-		for(Individual i : population) System.out.println(i);
-	}
-
-	public static double calculateFitness(Individual individual) {
-		return Double.valueOf(countHits(individual)) / individual.getChromosome().length;
-	}
-
-	public static int countHits(Individual individual) {
-		int counter = 0;
-
-		for(int i = 0; i < individual.getChromosome().length; i++) {
-			if(Character.compare(individual.getChromosome()[i], TARGET.charAt(i)) == 0) counter++;
+		for (int i = 0; i < 1; i++) {
+			runSimulation();
+			if(i % 20 == 0) System.out.println("Run no." + i);
+			if(i % 100 == 0) System.out.println("Medium number of generations (so far): " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
 		}
 
-		return counter;
+		System.out.println("Medium number of generations: " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
 	}
-	
+
+	public static void runSimulation() {
+		generations = new ArrayList<>();
+		Generation currentGeneration = new Generation(Evolution.initPopulation(popSize));
+		generations.add(currentGeneration);
+		currentGeneration.perform();
+		// for(Individual i : currentGeneration.highPerformer(5)) System.out.println(i);
+		// System.out.println("Medium Fitness: " + currentGeneration.mediumFitness());
+
+		while(currentGeneration.searchForMatch(TARGET) == null) {
+		 	currentGeneration = currentGeneration.nextGeneration();
+		 	currentGeneration.perform();
+		 	System.out.println("Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
+			generations.add(currentGeneration);
+			for(Individual i : currentGeneration.highPerformer(3)) System.out.println(i);
+			for(Individual i : currentGeneration.lowPerformer(3)) System.out.println(i);
+		}
+
+		// for(Individual i : currentGeneration.highPerformer(2)) System.out.println(i);
+		System.out.println("Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
+		System.out.println("Found Target: " + currentGeneration.searchForMatch(TARGET));
+		results.add(generations.size());
+	}
+
+
+	private static void initAlphabet() {
+		for (char c = 'A'; c <= 'Z'; c++) {
+			alphabet[c - 'A'] = c;
+		}
+		alphabet[26] = ' ';
+	}
 }
