@@ -68,7 +68,7 @@ public class Input {
     }
     
     public static void specifyNumberOfRuns() {
-        System.out.println("How often do you want to run the simulation? (leave blank for 1) (CAUTION: only recomended if you have specified a low log level. The output will get a lot otherwise...)");
+        System.out.println("How often do you want to run the simulation? (leave blank for 1) (CAUTION: only recomended if you have specified a low log level. Because otherwise...)");
         Integer input = ConsoleIN.readInt();
         if (input != null && input > 0) Practical1.runs = input;
         else Practical1.runs = 1;
