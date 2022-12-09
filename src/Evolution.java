@@ -57,7 +57,6 @@ public class Evolution {
     public static Individual createChild(Individual parent1, Individual parent2) {
         char[] newChromosome = new char[Practical1.TARGET.length()];
 
-        
         if (singleCrossOverPoint) {
             int split = Practical1.generator.nextInt(newChromosome.length);
             // random decision if the chromosome of parent 1 or parent 2 will be chosen
@@ -81,18 +80,20 @@ public class Evolution {
         
         // some random mutations (not so likely)
         for (int i = 0; i < newChromosome.length; i++) {
-            if(Practical1.generator.nextDouble(100) > 70) {
+            if(Practical1.generator.nextDouble(100) > 95) {
                 newChromosome[i] = Practical1.alphabet[Practical1.generator.nextInt(Practical1.alphabet.length)];
             }
         }
-        
-        
+         
         Individual child = new Individual(newChromosome);
+        
+        // LOGGING
         Debug.log4("New Individual will be created: ");
         Debug.log4("Parent 1: " + parent1);
         Debug.log4("Parent 2: " + parent2);
         Debug.log4("Child:    " + child.genoToPhenotype());
         Debug.log4("---");
+
         return child;
     }
     

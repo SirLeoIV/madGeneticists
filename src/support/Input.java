@@ -6,9 +6,9 @@ import src.Practical1;
 public class Input {
     
     public static void specifyLogLevel() {
-        String[] options = {"1", "2", "3", "4", "help", "?"};
+        String[] options = {"0", "1", "2", "3", "4", "help", "?"};
 
-        System.out.println("What log-level do you like to set? (1-4 or \"?\" for explanation)");
+        System.out.println("What log-level do you like to set? (0-4 or \"?\" for explanation)");
 
         switch(ConsoleIN.readInputOptions(options).toLowerCase()) {
             case "1" -> Debug.LOG_LEVEL = 1;
@@ -16,6 +16,7 @@ public class Input {
             case "3" -> Debug.LOG_LEVEL = 3;
             case "4" -> Debug.LOG_LEVEL = 4;
             case "help", "?" -> {
+                System.out.println("Log-Level 0: See only the result of all simulations combined (only recommended if you run the sinmulation for a huge amount of times).");
                 System.out.println("Log-Level 1: See only basic information like how many generation were needed for finding the target string.");
                 System.out.println("Log-Level 2: See some more information like the medium fitness score of each generation.");
                 System.out.println("Log-Level 3: See even more information like the High- and Low-performers of each generation.");

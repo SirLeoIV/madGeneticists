@@ -7,8 +7,9 @@ import src.support.Input;
 
 public class Practical1 {
 
-	public static String TARGET = "HELLO WORLD";
-	public static int popSize = 100;
+	public static String TARGET_OLD = "HELLO WORLD";
+	public static String TARGET = "GR";
+	public static int popSize = 10;
 	public static char[] alphabet = new char[27];
 	public static Individual[] population = {};
 	public static Random generator = new Random(System.currentTimeMillis());
@@ -43,29 +44,52 @@ public class Practical1 {
 		 * - Check your integers and doubles (eg. don't use ints for double divisions).
 		*/
 
-		for (int i = 1; i <= runs; i++) {
-			runSimulation();
-			if(i % 20 == 0) Debug.log1("Run no." + i);
-			if(i % 100 == 0) Debug.log1("Medium number of generations (so far): " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
-		}
-		if(runs > 1) {
-			Debug.log1("");
-			Debug.log1("----------- SUCCESSFULLY COMPLETED SIMULATION-----------");
-			Debug.log1("Simulation run for " + runs + " times.");
-			Debug.log1("Medium number of generations: " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
-		}
+		// for (int j = 800; j <= 800; j = j + 200) {
+		// 	popSize = j;
+		// 	Evolution.numberOfIndividualsUsedForReproduction =  (int) (((double) (((double) Practical1.popSize) / ((double) 100))) * 25);
+			generations = new ArrayList<>();
+			results = new ArrayList<>();
+			for (int i = 1; i <= runs; i++) {
+				runSimulation();
+				
+				// LOGGING
+				if(i % 20 == 0) Debug.log0("Run no." + i);
+				if(i % 100 == 0) Debug.log1("Medium number of generations (so far): " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
+			}
+			
+			// LOGGING
+			if(runs > 1) {
+				Debug.log0("");
+				Debug.log0("----------- SUCCESSFULLY COMPLETED SIMULATION ----------");
+				Debug.log0("Population Size: " + popSize);
+				Debug.log0("Number of HighPeformers: " + Evolution.numberOfIndividualsUsedForReproduction);
+				Debug.log0("Simulation run for " + runs + " times.");
+				Debug.log0("Medium number of generations: " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
+				Debug.log0("--------------------------------------------------------");
+			}
+		// }
 	}
 
 	public static void runSimulation() {
 		generations = new ArrayList<>();
 		Generation currentGeneration = new Generation(Evolution.initPopulation(popSize));
-		generations.add(currentGeneration);
 		currentGeneration.perform();
+		generations.add(currentGeneration);
 
+		// LOGGING
+		Debug.log2("Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
+		Debug.log3("High Performer: ");
+		for(Individual i : currentGeneration.highPerformer(performersToBeLogged)) Debug.log3(i);
+	   	Debug.log3("Low Performer: ");
+	   	for(Individual i : currentGeneration.lowPerformer(performersToBeLogged)) Debug.log3(i);
+	   	Debug.log3("----------------");
+		   
 		while(currentGeneration.searchForMatch(TARGET) == null) {
-		 	currentGeneration = currentGeneration.nextGeneration();
-		 	currentGeneration.perform();
+			currentGeneration = currentGeneration.nextGeneration();
+			currentGeneration.perform();
 			generations.add(currentGeneration);
+
+			// LOGGING
 		 	Debug.log2("Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
 			Debug.log3("High Performer: ");
 			for(Individual i : currentGeneration.highPerformer(performersToBeLogged)) Debug.log3(i);
@@ -74,9 +98,17 @@ public class Practical1 {
 			Debug.log3("----------------");
 		}
 
-		Debug.log2("# SUCCESS #");
-		Debug.log1("-- Final Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
-		Debug.log1("-- Found Target: " + currentGeneration.searchForMatch(TARGET));
+		// LOGGING
+		if (runs == 1) {
+			Debug.log2("# SUCCESS #");
+			Debug.log0("-- Final Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
+			Debug.log0("-- Found Target: " + currentGeneration.searchForMatch(TARGET));
+		} else {
+			Debug.log2("# SUCCESS #");
+			Debug.log1("-- Final Generation: " + generations.size() + ", Medium Fitness: " + currentGeneration.mediumFitness());
+			Debug.log1("-- Found Target: " + currentGeneration.searchForMatch(TARGET));
+		}
+
 		results.add(generations.size());
 	}
 
