@@ -34,6 +34,7 @@ public class Generation {
     }
     
     public Individual[] highPerformer(int amount) {
+        if(amount >= population.length / 2) amount = population.length / 2;
         Individual[] highPerformer = new Individual[amount];
         for (int i = 0; i < amount && i < population.length - 1; i++) {
             highPerformer[i] = population[i];
@@ -42,6 +43,7 @@ public class Generation {
     }
 
     public Individual[] lowPerformer(int amount) {
+        if(amount >= population.length / 2) amount = population.length / 2;
         Individual[] lowPerformer = new Individual[amount];
         for (int i = 0; i < amount && i < population.length - 1; i++) {
             lowPerformer[i] = population[population.length - 1 - i];
