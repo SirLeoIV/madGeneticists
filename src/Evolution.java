@@ -80,7 +80,7 @@ public class Evolution {
         
         // some random mutations (not so likely)
         for (int i = 0; i < newChromosome.length; i++) {
-            if(Practical1.generator.nextDouble(100) > 95) {
+            if(Practical1.generator.nextDouble(100) > 100 - Practical1.mutationRate) {
                 newChromosome[i] = Practical1.alphabet[Practical1.generator.nextInt(Practical1.alphabet.length)];
             }
         }

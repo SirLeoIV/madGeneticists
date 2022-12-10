@@ -16,6 +16,7 @@ public class Practical1 {
 	public static ArrayList<Generation> generations = new ArrayList<>();
 	public static ArrayList<Integer> results = new ArrayList<>();
 	public static int performersToBeLogged = 3;
+	public static int mutationRate = 1;
 	public static int runs = 1;
 
 	public static void main(String[] args) {
@@ -25,6 +26,7 @@ public class Practical1 {
 		Input.specifyChromosomeDesicion();
 		Input.specifyPopulationSize();
 		Input.specifyNumberOfIndividualsUsedForReproduction();
+		Input.specifyMutationRate();
 		Input.specifyNumberOfRuns();
 
 		// do your own cool GA here
@@ -63,6 +65,7 @@ public class Practical1 {
 				Debug.log0("----------- SUCCESSFULLY COMPLETED SIMULATION ----------");
 				Debug.log0("Population Size: " + popSize);
 				Debug.log0("Number of HighPeformers: " + Evolution.numberOfIndividualsUsedForReproduction);
+				Debug.log0("Mutation Rate: " + Practical1.mutationRate + "%");
 				Debug.log0("Simulation run for " + runs + " times.");
 				Debug.log0("Medium number of generations: " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
 				Debug.log0("--------------------------------------------------------");

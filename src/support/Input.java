@@ -61,6 +61,13 @@ public class Input {
         else Evolution.numberOfIndividualsUsedForReproduction = Practical1.popSize / 5;
     }
     
+    public static void specifyMutationRate() {
+        System.out.println("How high should the mutation rate for each gene be (in %)? (0 - 100) (leave blank for 10%)");
+        Integer input = ConsoleIN.readInt();
+        if (input != null && input >= 0 && input <= 100) Practical1.mutationRate = input;
+        else Practical1.mutationRate = 10;
+    }
+    
     public static void specifyHowManyPerformersShouldBeLogged() {
         System.out.println("How many of the best and worst performing individuals should be logged? (leave blank for 3)");
         Integer input = ConsoleIN.readInt();
