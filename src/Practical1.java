@@ -7,11 +7,9 @@ import src.support.Input;
 
 public class Practical1 {
 
-	public static String TARGET_OLD = "HELLO WORLD";
-	public static String TARGET = "GR";
+	public static String TARGET = "HELLO WORLD";
 	public static int popSize = 10;
 	public static char[] alphabet = new char[27];
-	public static Individual[] population = {};
 	public static Random generator = new Random(System.currentTimeMillis());
 	public static ArrayList<Generation> generations = new ArrayList<>();
 	public static ArrayList<Integer> results = new ArrayList<>();
@@ -46,9 +44,8 @@ public class Practical1 {
 		 * - Check your integers and doubles (eg. don't use ints for double divisions).
 		*/
 
-		// for (int j = 800; j <= 800; j = j + 200) {
-		// 	popSize = j;
-		// 	Evolution.numberOfIndividualsUsedForReproduction =  (int) (((double) (((double) Practical1.popSize) / ((double) 100))) * 25);
+		// for (int j = 1; j >= 1; j = j-1) {
+		// 	Evolution.numberOfIndividualsUsedForReproduction = (Practical1.popSize / 100) * j;
 			generations = new ArrayList<>();
 			results = new ArrayList<>();
 			for (int i = 1; i <= runs; i++) {
@@ -67,7 +64,7 @@ public class Practical1 {
 				Debug.log0("Number of HighPeformers: " + Evolution.numberOfIndividualsUsedForReproduction);
 				Debug.log0("Mutation Rate: " + Practical1.mutationRate + "%");
 				Debug.log0("Simulation run for " + runs + " times.");
-				Debug.log0("Medium number of generations: " + results.stream().mapToInt(it -> Integer.valueOf(it)).sum() / results.size());
+				Debug.log0("Medium number of generations: " + results.stream().mapToInt(Integer::valueOf).sum() / results.size());
 				Debug.log0("--------------------------------------------------------");
 			}
 		// }
