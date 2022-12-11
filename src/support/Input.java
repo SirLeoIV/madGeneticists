@@ -64,8 +64,8 @@ public class Input {
     public static void specifyMutationRate() {
         System.out.println("How high should the mutation rate for each gene be (in %)? (0 - 100) (leave blank for 10%)");
         Integer input = ConsoleIN.readInt();
-        if (input != null && input >= 0 && input <= 100) Practical1.mutationRate = input;
-        else Practical1.mutationRate = 10;
+        if (input != null && input >= 0 && input <= 100) Evolution.mutationRate = input;
+        else Evolution.mutationRate = 10;
     }
     
     public static void specifyHowManyPerformersShouldBeLogged() {

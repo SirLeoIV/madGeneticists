@@ -14,7 +14,6 @@ public class Practical1 {
 	public static ArrayList<Generation> generations = new ArrayList<>();
 	public static ArrayList<Integer> results = new ArrayList<>();
 	public static int performersToBeLogged = 3;
-	public static int mutationRate = 1;
 	public static int runs = 1;
 
 	public static void main(String[] args) {
@@ -27,23 +26,7 @@ public class Practical1 {
 		Input.specifyMutationRate();
 		Input.specifyNumberOfRuns();
 
-		// do your own cool GA here
-		/**
-		 * Some general programming remarks and hints:
-		 * - A crucial point is to set each individual's fitness (by the setFitness() method) before sorting. When is an individual fit? 
-		 * 	How do you encode that into a double (between 0 and 1)?
-		 * - Decide when to stop, that is: when the algorithm has converged. And make sure you  terminate your loop when it does.
-		 * - print the whole population after convergence and print the number of generations it took to converge.
-		 * - print lots of output (especially if things go wrong).
-		 * - work in an orderly and structured fashion (use tabs, use methods,..)
-		 * - DONT'T make everything private. This will only complicate things. Keep variables local if possible
-		 * - A common error are mistakes against pass-by-reference (this means that you pass the 
-		 * 	address of an object, not a copy of the object to the method). There is a deepclone method included in the
-		 *  Individual class.Use it!
-		 * - You can compare your chromosome and your target string, using for eg. TARGET.charAt(i) == ...
-		 * - Check your integers and doubles (eg. don't use ints for double divisions).
-		*/
-
+		// reactivate if you want to run the program multiple times with different input parameters
 		// for (int j = 1; j >= 1; j = j-1) {
 		// 	Evolution.numberOfIndividualsUsedForReproduction = (Practical1.popSize / 100) * j;
 			generations = new ArrayList<>();
@@ -62,7 +45,7 @@ public class Practical1 {
 				Debug.log0("----------- SUCCESSFULLY COMPLETED SIMULATION ----------");
 				Debug.log0("Population Size: " + popSize);
 				Debug.log0("Number of HighPeformers: " + Evolution.numberOfIndividualsUsedForReproduction);
-				Debug.log0("Mutation Rate: " + Practical1.mutationRate + "%");
+				Debug.log0("Mutation Rate: " + Evolution.mutationRate + "%");
 				Debug.log0("Simulation run for " + runs + " times.");
 				Debug.log0("Medium number of generations: " + results.stream().mapToInt(Integer::valueOf).sum() / results.size());
 				Debug.log0("--------------------------------------------------------");

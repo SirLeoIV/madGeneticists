@@ -6,6 +6,7 @@ public class Evolution {
 
     public static boolean singleCrossOverPoint = false;
     public static int numberOfIndividualsUsedForReproduction = 2;
+	public static int mutationRate = 1;
     	
 	public static Individual[] initPopulation(int popSize) {
 		Individual[] population = new Individual[popSize];
@@ -80,7 +81,7 @@ public class Evolution {
         
         // some random mutations (not so likely)
         for (int i = 0; i < newChromosome.length; i++) {
-            if(Practical1.generator.nextDouble(100) > 100 - Practical1.mutationRate) {
+            if(Practical1.generator.nextDouble(100) > 100 - mutationRate) {
                 newChromosome[i] = Practical1.alphabet[Practical1.generator.nextInt(Practical1.alphabet.length)];
             }
         }
